@@ -26,7 +26,7 @@ public class Gff {
       @NonNull String feature,
       long start,
       long end,
-      double score,
+      @NonNull String score,
       @NonNull String strand,
       @NonNull String frame,
       @NonNull String attributeSemicolonSeparated
@@ -36,7 +36,7 @@ public class Gff {
     this.feature = feature;
     this.start = start;
     this.end = end;
-    this.score = score;
+    this.score = score.equals(".") ? Double.NaN : Double.parseDouble(score);
     this.strand = Strand.of(strand);
     this.frame = Frame.of(frame);
     this.attribute = createAttributeMapOf(attributeSemicolonSeparated);

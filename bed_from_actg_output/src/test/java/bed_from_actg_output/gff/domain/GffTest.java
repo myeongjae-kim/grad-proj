@@ -1,5 +1,6 @@
 package bed_from_actg_output.gff.domain;
 
+import static java.lang.Double.NaN;
 import static org.assertj.core.api.BDDAssertions.then;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,7 +15,7 @@ class GffTest {
         .feature("exon")
         .start(22712913L)
         .end(22712966L)
-        .score(0.0)
+        .score("1.0")
         .strand("+")
         .frame("0")
         .attributeSemicolonSeparated("ID=1; hid=trf; hstart=1; hend=21").build();
@@ -24,7 +25,7 @@ class GffTest {
     then(gff.getFeature()).isEqualTo("exon");
     then(gff.getStart()).isEqualTo(22712913L);
     then(gff.getEnd()).isEqualTo(22712966L);
-    then(gff.getScore()).isEqualTo(0.0);
+    then(gff.getScore()).isEqualTo(1.0);
     then(gff.getStrand()).isEqualTo(Strand.FORWARD);
     then(gff.getFrame()).isEqualTo(Frame.ZERO);
     then(gff.getAttribute().get("ID")).isEqualTo("1");
@@ -42,11 +43,27 @@ class GffTest {
         .feature("exon")
         .start(22712913L)
         .end(22712966L)
-        .score(0.0)
+        .score(".")
         .strand("+")
         .frame("0")
         .attributeSemicolonSeparated(attribute).build();
 
     then(gff.getAttribute().size()).isEqualTo(0);
+  }
+
+  @Test
+  void construct_EmptyScore_ValidOutput() {
+    Gff gff = Gff.builder()
+        .seqname("chr22")
+        .source("ACTG")
+        .feature("exon")
+        .start(22712913L)
+        .end(22712966L)
+        .score(".")
+        .strand("+")
+        .frame("0")
+        .attributeSemicolonSeparated("ID=1; hid=trf; hstart=1; hend=21").build();
+
+    then(gff.getScore()).isEqualTo(NaN);
   }
 }
