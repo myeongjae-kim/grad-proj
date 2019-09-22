@@ -1,9 +1,13 @@
 package bed_from_actg_output;
 
+import bed_from_actg_output.common.service.CsvFileService;
+import bed_from_actg_output.flat.domain.FlatRepository;
+import bed_from_actg_output.gff.domain.GffRepository;
+import java.io.IOException;
 import org.apache.commons.cli.*;
 
 public class Application {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     CommandLine cmd = parseArgs(args);
     if (cmd == null) {
       System.exit(1);
@@ -12,8 +16,13 @@ public class Application {
     String flatFilePath = cmd.getOptionValue("flat");
     String gffFilePath = cmd.getOptionValue("gff");
 
-    System.out.println(flatFilePath);
-    System.out.println(gffFilePath);
+    CsvFileService csvFileService = new CsvFileService();
+
+    FlatRepository flatRepository = new FlatRepository(flatFilePath, csvFileService);
+    GffRepository gffRepository = new GffRepository(gffFilePath, csvFileService);
+
+    System.out.println(flatRepository.findAll().get(0));
+    System.out.println(gffRepository.findAll().get(0));
   }
 
   public static CommandLine parseArgs(String[] args) {

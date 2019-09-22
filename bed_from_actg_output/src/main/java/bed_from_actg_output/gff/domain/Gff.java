@@ -1,6 +1,8 @@
 package bed_from_actg_output.gff.domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,5 +60,24 @@ public class Gff {
     }
 
     return attributeMap;
+  }
+
+  @Override
+  public String toString() {
+    String scoreString = Double.isNaN(this.score) ? "." : Double.toString(this.score);
+
+    List<String> attributes = new ArrayList<>();
+    this.attribute.forEach((key, value) -> attributes.add(key + "=" + value + ";"));
+    String attributeJoined = attributes.stream().reduce("", (prev, curr) -> prev + " " + curr);
+
+    return seqname + "\t"
+        + source + "\t"
+        + feature + "\t"
+        + start + "\t"
+        + end +"\t"
+        + scoreString + "\t"
+        + strand.getStrand() + "\t"
+        + frame.getFrame() + "\t"
+        + attributeJoined;
   }
 }

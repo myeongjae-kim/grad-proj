@@ -63,4 +63,38 @@ class GffTest {
 
     then(gff.getScore()).isEqualTo(NaN);
   }
+
+  @Test
+  void toString_ValidInput_ValidOutput() {
+    Gff gff = Gff.builder()
+        .seqname("chr22")
+        .source("ACTG")
+        .feature("exon")
+        .start(22712913L)
+        .end(22712966L)
+        .score("1.0")
+        .strand("+")
+        .frame("0")
+        .attributeSemicolonSeparated("ID=1; hid=trf; hstart=1; hend=21").build();
+
+    then(gff.toString())
+        .isEqualTo("chr22\tACTG\texon\t22712913\t22712966\t1.0\t+\t0\t hid=trf; hend=21; hstart=1; ID=1;");
+  }
+
+  @Test
+  void toString_EmptyScore_ValidOutput() {
+    Gff gff = Gff.builder()
+        .seqname("chr22")
+        .source("ACTG")
+        .feature("exon")
+        .start(22712913L)
+        .end(22712966L)
+        .score(".")
+        .strand("+")
+        .frame("0")
+        .attributeSemicolonSeparated("ID=1; hid=trf; hstart=1; hend=21").build();
+
+    then(gff.toString())
+        .isEqualTo("chr22\tACTG\texon\t22712913\t22712966\t.\t+\t0\t hid=trf; hend=21; hstart=1; ID=1;");
+  }
 }
