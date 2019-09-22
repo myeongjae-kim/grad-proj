@@ -9,7 +9,7 @@ public class GffRepository {
   private List<Gff> gffs;
 
   public GffRepository(String filePath, CsvFileService csvFileService) throws IOException {
-    List<List<String>> records = csvFileService.readFileOf(filePath, true);
+    List<List<String>> records = csvFileService.readFileOf(filePath, false);
 
     gffs = new ArrayList<>();
     records.forEach(r -> gffs.add(Gff.builder()

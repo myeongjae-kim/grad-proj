@@ -1,12 +1,19 @@
 plugins {
     id 'java'
     id "io.freefair.lombok" version "4.0.1"
+    id "com.github.johnrengelman.shadow" version "5.1.0"
 }
 
 group 'bed_from_actg_output'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'bed_from_actg_output.Application'
+    }
+}
 
 repositories {
     mavenCentral()
@@ -24,3 +31,4 @@ dependencies {
 
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
 }
+

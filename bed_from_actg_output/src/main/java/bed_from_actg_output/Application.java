@@ -4,7 +4,13 @@ import bed_from_actg_output.common.service.CsvFileService;
 import bed_from_actg_output.flat.domain.FlatRepository;
 import bed_from_actg_output.gff.domain.GffRepository;
 import java.io.IOException;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 public class Application {
   public static void main(String[] args) throws IOException {
