@@ -45,7 +45,7 @@ public class Gff {
   private Map<String, String> createAttributeMapOf(String attributeSemicolonSeparated) {
     Map<String, String> attributeMap = new HashMap<>();
 
-    if (attributeSemicolonSeparated.isEmpty() || attributeSemicolonSeparated.equals(".")) {
+    if (attributeSemicolonSeparated.equals(".")) {
       return attributeMap;
     }
 

@@ -3,8 +3,6 @@ package bed_from_actg_output.gff.domain;
 import static java.lang.Double.NaN;
 import static org.assertj.core.api.BDDAssertions.then;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class GffTest {
   @Test
@@ -34,9 +32,8 @@ class GffTest {
     then(gff.getAttribute().get("hend")).isEqualTo("21");
   }
 
-  @ParameterizedTest
-  @ValueSource(strings={"", "."})
-  void construct_EmptyAttribute_ValidOutput(String attribute) {
+  @Test
+  void construct_EmptyAttribute_ValidOutput() {
     Gff gff = Gff.builder()
         .seqname("chr22")
         .source("ACTG")
@@ -46,7 +43,7 @@ class GffTest {
         .score(".")
         .strand("+")
         .frame("0")
-        .attributeSemicolonSeparated(attribute).build();
+        .attributeSemicolonSeparated(".").build();
 
     then(gff.getAttribute().size()).isEqualTo(0);
   }
