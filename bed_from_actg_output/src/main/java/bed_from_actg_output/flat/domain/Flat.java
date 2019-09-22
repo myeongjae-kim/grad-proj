@@ -28,4 +28,9 @@ public class Flat {
     this.geneId = geneId;
     this.attribute = attribute;
   }
+
+  @Override
+  public String toString() {
+    return gffId + "\t" + peptide + "\t" + geneId + "\t" + attribute;
+  }
 }

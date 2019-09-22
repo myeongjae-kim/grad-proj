@@ -9,8 +9,8 @@ class FlatTest {
   void construct_ValidInput_ValidOutput() {
     Flat flat = Flat.builder()
         .gffId("gffId")
-        .geneId("geneId")
         .peptide("peptide")
+        .geneId("geneId")
         .attribute("attribute").build();
 
     then(flat.getGffId()).isEqualTo("gffId");
@@ -23,17 +23,8 @@ class FlatTest {
   void construct_NullGffId_ThrowException() {
     thenThrownBy(() -> Flat.builder()
         .gffId(null)
+        .peptide("peptide")
         .geneId("geneId")
-        .peptide("peptide")
-        .attribute("attribute").build()).isInstanceOf(NullPointerException.class);
-  }
-
-  @Test
-  void construct_NullGeneId_ThrowException() {
-    thenThrownBy(() -> Flat.builder()
-        .gffId("gffId")
-        .geneId(null)
-        .peptide("peptide")
         .attribute("attribute").build()).isInstanceOf(NullPointerException.class);
   }
 
@@ -41,8 +32,17 @@ class FlatTest {
   void construct_NullPeptide_ThrowException() {
     thenThrownBy(() -> Flat.builder()
         .gffId("gffId")
-        .geneId("geneId")
         .peptide(null)
+        .geneId("geneId")
+        .attribute("attribute").build()).isInstanceOf(NullPointerException.class);
+  }
+
+  @Test
+  void construct_NullGeneId_ThrowException() {
+    thenThrownBy(() -> Flat.builder()
+        .gffId("gffId")
+        .peptide("peptide")
+        .geneId(null)
         .attribute("attribute").build()).isInstanceOf(NullPointerException.class);
   }
 
@@ -50,8 +50,8 @@ class FlatTest {
   void construct_NullAttribute_ThrowException() {
     thenThrownBy(() -> Flat.builder()
         .gffId("gffId")
-        .geneId("geneId")
         .peptide("peptide")
+        .geneId("geneId")
         .attribute(null).build()).isInstanceOf(NullPointerException.class);
   }
 
@@ -59,17 +59,8 @@ class FlatTest {
   void construct_EmptyGffId_AssertionError() {
     thenThrownBy(() -> Flat.builder()
         .gffId("")
+        .peptide("peptide")
         .geneId("geneId")
-        .peptide("peptide")
-        .attribute("attribute").build()).isInstanceOf(AssertionError.class);
-  }
-
-  @Test
-  void construct_EmptyGeneId_AssertionError() {
-    thenThrownBy(() -> Flat.builder()
-        .gffId("gffId")
-        .geneId("")
-        .peptide("peptide")
         .attribute("attribute").build()).isInstanceOf(AssertionError.class);
   }
 
@@ -77,8 +68,17 @@ class FlatTest {
   void construct_EmptyPeptide_AssertionError() {
     thenThrownBy(() -> Flat.builder()
         .gffId("gffId")
-        .geneId("geneId")
         .peptide("")
+        .geneId("geneId")
+        .attribute("attribute").build()).isInstanceOf(AssertionError.class);
+  }
+
+  @Test
+  void construct_EmptyGeneId_AssertionError() {
+    thenThrownBy(() -> Flat.builder()
+        .gffId("gffId")
+        .peptide("peptide")
+        .geneId("")
         .attribute("attribute").build()).isInstanceOf(AssertionError.class);
   }
 
@@ -86,8 +86,20 @@ class FlatTest {
   void construct_EmptyAttribute_AssertionError() {
     thenThrownBy(() -> Flat.builder()
         .gffId("gffId")
-        .geneId("geneId")
         .peptide("peptide")
+        .geneId("geneId")
         .attribute("").build()).isInstanceOf(AssertionError.class);
   }
+
+  @Test
+  void toString_ValidInput_ValidOutput() {
+    Flat flat = Flat.builder()
+        .gffId("1")
+        .peptide("YVLTQPPSVSVAPGQTAR")
+        .geneId("ENSG00000211662.2")
+        .attribute("CDS").build();
+
+    then(flat.toString()).isEqualTo("1\tYVLTQPPSVSVAPGQTAR\tENSG00000211662.2\tCDS");
+  }
 }
+
