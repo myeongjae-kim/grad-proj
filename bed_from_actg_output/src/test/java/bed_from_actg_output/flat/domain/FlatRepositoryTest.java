@@ -39,6 +39,7 @@ class FlatRepositoryTest {
     List<Flat> flats = flatRepository.findAll();
 
     // then
+    then(flats.size()).isEqualTo(1);
     Flat flat = flats.get(0);
     then(flat.getGffId()).isEqualTo("1");
     then(flat.getPeptide()).isEqualTo("YVLTQPPSVSVAPGQTAR");
