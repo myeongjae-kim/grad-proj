@@ -30,11 +30,8 @@ public class Application {
     FlatRepository flatRepository = new FlatRepository(flatFilePath, csvFileService);
     GffRepository gffRepository = new GffRepository(gffFilePath, csvFileService);
 
-    BedService bedService = new BedService();
-    List<Bed> beds = bedService.createBedsFrom(
-        flatRepository.findAllByAttributeCdsMappedByGffId(),
-        gffRepository.findAll()
-    );
+    BedService bedService = new BedService(flatRepository, gffRepository);
+    List<Bed> beds = bedService.createBeds();
 
     System.out.println(beds.stream()
         .map(Object::toString)
