@@ -1,9 +1,12 @@
 package bed_from_actg_output;
 
+import bed_from_actg_output.bed.domain.Bed;
+import bed_from_actg_output.bed.service.BedService;
 import bed_from_actg_output.common.service.CsvFileService;
 import bed_from_actg_output.flat.domain.FlatRepository;
 import bed_from_actg_output.gff.domain.GffRepository;
 import java.io.IOException;
+import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -27,8 +30,15 @@ public class Application {
     FlatRepository flatRepository = new FlatRepository(flatFilePath, csvFileService);
     GffRepository gffRepository = new GffRepository(gffFilePath, csvFileService);
 
-    System.out.println(flatRepository.findAll().get(0));
-    System.out.println(gffRepository.findAll().get(0));
+    BedService bedService = new BedService();
+    List<Bed> beds = bedService.createBedsFrom(
+        flatRepository.findAllByAttributeCdsMappedByGffId(),
+        gffRepository.findAll()
+    );
+
+    System.out.println(beds.stream()
+        .map(Object::toString)
+        .reduce((prev, curr) -> prev + "\n" + curr).orElse(""));
   }
 
   public static CommandLine parseArgs(String[] args) {
