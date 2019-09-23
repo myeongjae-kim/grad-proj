@@ -35,6 +35,8 @@ class ApplicationIntTest {
 
     // when
     Application.main(args);
+
+    // then
     then(outContent).hasToString("chr22\t22712912\t22712966\tYVLTQPPSVSVAPGQTAR_ENSG00000211662.2_+\n");
   }
 }
