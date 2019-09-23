@@ -21,10 +21,11 @@ class CsvFileServiceTest {
   @Test
   void readFileOf_FirstLineIsHeader_ValidOutput() throws IOException {
     // given
-    FileWriter fileWriter = new FileWriter(tempFile);
-    fileWriter.write("GFFID\tPeptide\tGeneID\tAttribute\n" +
-        "1\tYVLTQPPSVSVAPGQTAR\tENSG00000211662.2\tCDS\n");
-    fileWriter.flush();
+    try (FileWriter fileWriter = new FileWriter(tempFile)) {
+      fileWriter.write("GFFID\tPeptide\tGeneID\tAttribute\n" +
+          "1\tYVLTQPPSVSVAPGQTAR\tENSG00000211662.2\tCDS\n");
+      fileWriter.flush();
+    }
 
     // when
     CsvFileService csvFileService = new CsvFileService();
@@ -40,9 +41,10 @@ class CsvFileServiceTest {
   @Test
   void readFileOf_FirstLineIsNotHeader_ValidOutput() throws IOException {
     // given
-    FileWriter fileWriter = new FileWriter(tempFile);
-    fileWriter.write("chr22\tACTG\texon\t22712913\t22712966\t.\t+\t0\tID=1\n");
-    fileWriter.flush();
+    try (FileWriter fileWriter = new FileWriter(tempFile)) {
+      fileWriter.write("chr22\tACTG\texon\t22712913\t22712966\t.\t+\t0\tID=1\n");
+      fileWriter.flush();
+    }
 
     // when
     CsvFileService csvFileService = new CsvFileService();

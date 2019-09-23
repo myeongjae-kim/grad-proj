@@ -18,13 +18,16 @@ class ApplicationIntTest {
     File gffFile = File.createTempFile("bed_from_actg_output", "gff");
     flatFile.deleteOnExit();
     gffFile.deleteOnExit();
-    FileWriter flatFileWriter = new FileWriter(flatFile);
-    FileWriter gffFileWriter = new FileWriter(gffFile);
-    flatFileWriter.write("GFFID\tPeptide\tGeneID\tAttribute\n" +
-        "1\tYVLTQPPSVSVAPGQTAR\tENSG00000211662.2\tCDS\n");
-    gffFileWriter.write("chr22\tACTG\texon\t22712913\t22712966\t.\t+\t0\tID=1\n");
-    flatFileWriter.flush();
-    gffFileWriter.flush();
+
+    try (FileWriter flatFileWriter = new FileWriter(flatFile)) {
+      flatFileWriter.write("GFFID\tPeptide\tGeneID\tAttribute\n" +
+          "1\tYVLTQPPSVSVAPGQTAR\tENSG00000211662.2\tCDS\n");
+      flatFileWriter.flush();
+    }
+    try (FileWriter gffFileWriter = new FileWriter(gffFile)) {
+      gffFileWriter.write("chr22\tACTG\texon\t22712913\t22712966\t.\t+\t0\tID=1\n");
+      gffFileWriter.flush();
+    }
 
     String[] args = {"-f", flatFile.getPath(), "-g", gffFile.getPath()};
 
