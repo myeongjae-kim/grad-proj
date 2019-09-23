@@ -91,7 +91,7 @@ public class GffTest {
         .attributeSemicolonSeparated("ID=1; hid=trf; hstart=1; hend=21").build();
 
     then(gff.toString())
-        .isEqualTo("chr22\tACTG\texon\t22712913\t22712966\t1.0\t+\t0\t hid=trf; hend=21; hstart=1; ID=1;");
+        .isEqualTo("chr22\tACTG\texon\t22712913\t22712966\t1.0\t+\t0\thid=trf; hend=21; hstart=1; ID=1;");
   }
 
   @Test
