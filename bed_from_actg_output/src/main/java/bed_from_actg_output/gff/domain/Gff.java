@@ -68,7 +68,7 @@ public class Gff {
 
     List<String> attributes = new ArrayList<>();
     this.attribute.forEach((key, value) -> attributes.add(key + "=" + value + ";"));
-    String attributeJoined = attributes.stream().reduce("", (prev, curr) -> prev + " " + curr);
+    String attributeJoined = attributes.stream().reduce((prev, curr) -> prev + " " + curr).orElse(".");
 
     return seqname + "\t"
         + source + "\t"
@@ -76,8 +76,8 @@ public class Gff {
         + start + "\t"
         + end +"\t"
         + scoreString + "\t"
-        + strand.getStrand() + "\t"
-        + frame.getFrame() + "\t"
+        + strand + "\t"
+        + frame + "\t"
         + attributeJoined;
   }
 }

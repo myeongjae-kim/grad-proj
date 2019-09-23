@@ -4,7 +4,15 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import org.junit.jupiter.api.Test;
 
-class FlatTest {
+public class FlatTest {
+  public static Flat getFlatFixture() {
+    return Flat.builder()
+        .gffId("gffId")
+        .peptide("peptide")
+        .geneId("geneId")
+        .attribute("attribute").build();
+  }
+
   @Test
   void construct_ValidInput_ValidOutput() {
     Flat flat = Flat.builder()

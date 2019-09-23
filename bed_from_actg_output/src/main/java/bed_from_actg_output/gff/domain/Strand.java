@@ -4,6 +4,7 @@ import java.util.Arrays;
 import lombok.Getter;
 
 @Getter
+public
 enum Strand {
   EMPTY ("."), FORWARD("+"), REVERSE("-");
 
@@ -18,5 +19,10 @@ enum Strand {
         .filter(v -> strand.equals(v.strand))
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException(String.format("%s is not a value of Strand.", strand)));
+  }
+
+  @Override
+  public String toString() {
+    return strand;
   }
 }

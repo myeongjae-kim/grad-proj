@@ -1,5 +1,9 @@
 package bed_from_actg_output.bed.domain;
 
+import bed_from_actg_output.flat.domain.Flat;
+import static bed_from_actg_output.flat.domain.FlatTest.getFlatFixture;
+import bed_from_actg_output.gff.domain.Gff;
+import static bed_from_actg_output.gff.domain.GffTest.getGffFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import org.junit.jupiter.api.Test;
 
@@ -16,5 +20,18 @@ class BedTest {
     then(bed.getStart()).isEqualTo(22712912L);
     then(bed.getEnd()).isEqualTo(22712966L);
     then(bed.getMemo()).isEqualTo("YVLTQPPSVSVAPGQTAR_ENSG00000211662.2_+");
+  }
+
+  @Test
+  void of_ValidInput_ValidOutput() {
+    Gff gff = getGffFixture();
+    Flat flat = getFlatFixture();
+
+    Bed bed = Bed.of(gff, flat);
+
+    then(bed.getGeneId()).isEqualTo(flat.getGeneId());
+    then(bed.getStart()).isEqualTo(gff.getStart() - 1);
+    then(bed.getEnd()).isEqualTo(gff.getEnd());
+    then(bed.getMemo()).isEqualTo(flat.getPeptide() + "_" + flat.getAttribute() + "_" + gff.getStrand());
   }
 }

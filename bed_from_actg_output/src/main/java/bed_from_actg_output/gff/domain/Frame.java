@@ -19,4 +19,9 @@ enum Frame {
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException(String.format("%s is not a value of Frame.", frame)));
   }
+
+  @Override
+  public String toString() {
+    return frame;
+  }
 }
